@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-from enum import Enum
-from typing import TYPE_CHECKING, Dict, List, Optional, Union
-
-=======
 import math
 from collections import defaultdict
 from enum import Enum
 from typing import TYPE_CHECKING, Annotated, Dict, List, Literal, Optional, Union
 
 import numpy as np
->>>>>>> origin/main
 from docling_core.types.doc import (
     BoundingBox,
     DocItemLabel,
@@ -25,11 +19,7 @@ from docling_core.types.io import (
     DocumentStream,
 )
 from PIL.Image import Image
-<<<<<<< HEAD
-from pydantic import BaseModel, ConfigDict
-=======
 from pydantic import BaseModel, ConfigDict, Field, computed_field
->>>>>>> origin/main
 
 if TYPE_CHECKING:
     from docling.backend.pdf_backend import PdfPageBackend
@@ -47,12 +37,11 @@ class ConversionStatus(str, Enum):
 class InputFormat(str, Enum):
     """A document format supported by document backend parsers."""
 
-    PDF = "pdf"
     DOCX = "docx"
-    XLSM = "xlsm"
     PPTX = "pptx"
     HTML = "html"
     IMAGE = "image"
+    PDF = "pdf"
     ASCIIDOC = "asciidoc"
     MD = "md"
     CSV = "csv"
@@ -81,11 +70,7 @@ FormatToExtensions: Dict[InputFormat, List[str]] = {
     InputFormat.IMAGE: ["jpg", "jpeg", "png", "tif", "tiff", "bmp"],
     InputFormat.ASCIIDOC: ["adoc", "asciidoc", "asc"],
     InputFormat.CSV: ["csv"],
-<<<<<<< HEAD
-    InputFormat.XLSX: ["xlsx", "xlsm"],
-=======
-    InputFormat.XLSX: ["xlsx"],
->>>>>>> origin/main
+    InputFormat.XLSX: ["xlsx","xlsm"],
     InputFormat.XML_USPTO: ["xml", "txt"],
     InputFormat.JSON_DOCLING: ["json"],
 }
@@ -108,22 +93,14 @@ FormatToMimeType: Dict[InputFormat, List[str]] = {
         "image/tiff",
         "image/gif",
         "image/bmp",
-<<<<<<< HEAD
-=======
         "image/webp",
->>>>>>> origin/main
     ],
     InputFormat.PDF: ["application/pdf"],
     InputFormat.ASCIIDOC: ["text/asciidoc"],
     InputFormat.MD: ["text/markdown", "text/x-markdown"],
     InputFormat.CSV: ["text/csv"],
     InputFormat.XLSX: [
-<<<<<<< HEAD
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "application/vnd.ms-excel.sheet.macroEnabled.12"
-=======
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
->>>>>>> origin/main
     ],
     InputFormat.XML_USPTO: ["application/xml", "text/plain"],
     InputFormat.JSON_DOCLING: ["application/json"],
@@ -324,8 +301,6 @@ class OpenAiApiResponse(BaseModel):
     choices: List[OpenAiResponseChoice]
     created: int
     usage: OpenAiResponseUsage
-<<<<<<< HEAD
-=======
 
 
 # Create a type alias for score values
@@ -420,4 +395,3 @@ class ConfidenceReport(PageConfidenceScores):
                 [c.low_score for c in self.pages.values()],
             )
         )
->>>>>>> origin/main
