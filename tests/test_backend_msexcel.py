@@ -1,0 +1,103 @@
+import logging
+from pathlib import Path
+
+import pytest
+
+from docling.backend.msexcel_backend import MsExcelDocumentBackend
+from docling.datamodel.base_models import InputFormat
+from docling.datamodel.document import ConversionResult, DoclingDocument, InputDocument
+from docling.document_converter import DocumentConverter
+
+from .test_data_gen_flag import GEN_TEST_DATA
+from .verify_utils import verify_document, verify_export
+
+_log = logging.getLogger(__name__)
+
+GENERATE = GEN_TEST_DATA
+
+
+def get_excel_paths():
+    # Define the directory you want to search
+    directory = Path("./tests/data/xlsx/")
+
+    # List all Excel files in the directory and its subdirectories
+    excel_files = sorted(directory.rglob("*.xlsx")) + sorted(directory.rglob("*.xlsm"))
+    return excel_files
+
+
+def get_converter():
+    converter = DocumentConverter(allowed_formats=[InputFormat.XLSX])
+
+    return converter
+
+
+@pytest.fixture(scope="module")
+def documents() -> list[tuple[Path, DoclingDocument]]:
+    documents: list[dict[Path, DoclingDocument]] = []
+
+    excel_paths = get_excel_paths()
+    converter = get_converter()
+
+    for excel_path in excel_paths:
+        _log.debug(f"converting {excel_path}")
+
+        gt_path = (
+            excel_path.parent.parent / "groundtruth" / "docling_v2" / excel_path.name
+        )
+
+        conv_result: ConversionResult = converter.convert(excel_path)
+
+        doc: DoclingDocument = conv_result.document
+
+        assert doc, f"Failed to convert document from file {gt_path}"
+        documents.append((gt_path, doc))
+
+    return documents
+
+
+def test_e2e_excel_conversions(documents) -> None:
+    for gt_path, doc in documents:
+        pred_md: str = doc.export_to_markdown()
+        assert verify_export(pred_md, str(gt_path) + ".md"), "export to md"
+
+        pred_itxt: str = doc._export_to_indented_text(
+            max_text_len=70, explicit_tables=False
+        )
+        assert verify_export(pred_itxt, str(gt_path) + ".itxt"), (
+            "export to indented-text"
+        )
+
+        assert verify_document(doc, str(gt_path) + ".json", GENERATE), (
+            "document document"
+        )
+
+
+def test_pages(documents) -> None:
+    """Test the page count and page size of converted documents.
+
+    Args:
+        documents: The paths and converted documents.
+    """
+    # number of pages from the backend method
+    # Logic to handle multiple files
+    file_stems = [ "sample_sales_data"]
+    for stem in file_stems:
+        path = next(item for item in get_excel_paths() if item.stem == stem)
+        in_doc = InputDocument(
+            path_or_stream=path,
+            format=InputFormat.XLSX,
+            filename=path.stem,
+            backend=MsExcelDocumentBackend,
+        )
+        backend = MsExcelDocumentBackend(in_doc=in_doc, path_or_stream=path)
+        # Update the expected page count based on actual content
+        expected_page_count = 1  # Adjust this value based on the actual number of worksheets
+        assert backend.page_count() == expected_page_count
+    
+        # number of pages from the converted document
+        doc = next(item for path, item in documents if path.stem == stem)
+        assert len(doc.pages) == 1
+    
+       
+        # page sizes as number of cells
+        
