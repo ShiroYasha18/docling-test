@@ -287,7 +287,11 @@ class AsciiDocBackend(DeclarativeDocumentBackend):
 
     #   =========   Section headers
     def _is_section_header(self, line):
+<<<<<<< HEAD
         return re.match(r"^==+", line)
+=======
+        return re.match(r"^==+\s+", line)
+>>>>>>> origin/main
 
     def _parse_section_header(self, line):
         match = re.match(r"^(=+)\s+(.*)", line)

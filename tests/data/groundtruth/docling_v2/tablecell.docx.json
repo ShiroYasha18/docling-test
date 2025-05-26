@@ -74,6 +74,15 @@
       "prov": [],
       "orig": "Hello world1",
       "text": "Hello world1",
+<<<<<<< HEAD
+=======
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      },
+>>>>>>> origin/main
       "enumerated": false,
       "marker": "-"
     },
@@ -88,6 +97,15 @@
       "prov": [],
       "orig": "Hello2",
       "text": "Hello2",
+<<<<<<< HEAD
+=======
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      },
+>>>>>>> origin/main
       "enumerated": false,
       "marker": "-"
     },
@@ -113,7 +131,17 @@
       "label": "paragraph",
       "prov": [],
       "orig": "Some text before",
+<<<<<<< HEAD
       "text": "Some text before"
+=======
+      "text": "Some text before",
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      }
+>>>>>>> origin/main
     },
     {
       "self_ref": "#/texts/4",
@@ -149,7 +177,17 @@
       "label": "paragraph",
       "prov": [],
       "orig": "Some text after",
+<<<<<<< HEAD
       "text": "Some text after"
+=======
+      "text": "Some text after",
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      }
+>>>>>>> origin/main
     }
   ],
   "pictures": [],

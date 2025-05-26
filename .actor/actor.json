@@ -1,10 +1,17 @@
 {
   "actorSpecification": 1,
   "name": "docling",
+<<<<<<< HEAD
   "version": "0.0",
   "environmentVariables": {},
   "dockerFile": "./Dockerfile",
   "input": "./input_schema.json",
+=======
+  "version": "1.0",
+  "environmentVariables": {},
+  "dockerFile": "./Dockerfile",
+  "inputSchema": "./input_schema.json",
+>>>>>>> origin/main
   "scripts": {
     "run": "./actor.sh"
   }

@@ -56,13 +56,26 @@ class DebugSettings(BaseModel):
 
 
 class AppSettings(BaseSettings):
+<<<<<<< HEAD
     model_config = SettingsConfigDict(env_prefix="DOCLING_", env_nested_delimiter="_")
 
     perf: BatchConcurrencySettings
     debug: DebugSettings
+=======
+    model_config = SettingsConfigDict(
+        env_prefix="DOCLING_", env_nested_delimiter="_", env_nested_max_split=1
+    )
+
+    perf: BatchConcurrencySettings = BatchConcurrencySettings()
+    debug: DebugSettings = DebugSettings()
+>>>>>>> origin/main
 
     cache_dir: Path = Path.home() / ".cache" / "docling"
     artifacts_path: Optional[Path] = None
 
 
+<<<<<<< HEAD
 settings = AppSettings(perf=BatchConcurrencySettings(), debug=DebugSettings())
+=======
+settings = AppSettings()
+>>>>>>> origin/main

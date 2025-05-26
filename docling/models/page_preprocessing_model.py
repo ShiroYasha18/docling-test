@@ -1,11 +1,23 @@
+<<<<<<< HEAD
+=======
+import re
+>>>>>>> origin/main
 from collections.abc import Iterable
 from pathlib import Path
 from typing import Optional
 
+<<<<<<< HEAD
 from PIL import ImageDraw
 from pydantic import BaseModel
 
 from docling.datamodel.base_models import Page
+=======
+import numpy as np
+from PIL import ImageDraw
+from pydantic import BaseModel
+
+from docling.datamodel.base_models import Page, ScoreValue
+>>>>>>> origin/main
 from docling.datamodel.document import ConversionResult
 from docling.datamodel.settings import settings
 from docling.models.base_model import BasePageModel
@@ -21,6 +33,17 @@ class PagePreprocessingModel(BasePageModel):
     def __init__(self, options: PagePreprocessingOptions):
         self.options = options
 
+<<<<<<< HEAD
+=======
+        # Pre-compiled regex patterns for efficiency
+        self.GLYPH_RE = re.compile(r"GLYPH<[0-9A-Fa-f]+>")
+        self.SLASH_G_RE = re.compile(r"(?:/G\d+){2,}")
+        self.FRAG_RE = re.compile(r"\b[A-Za-z](?:/[a-z]{1,3}\.[a-z]{1,3}){2,}\b")
+        self.SLASH_NUMBER_GARBAGE_RE = re.compile(
+            r"(?:/\w+\s*){2,}"
+        )  # Two or more "/token " sequences
+
+>>>>>>> origin/main
     def __call__(
         self, conv_res: ConversionResult, page_batch: Iterable[Page]
     ) -> Iterable[Page]:
@@ -60,6 +83,21 @@ class PagePreprocessingModel(BasePageModel):
         if self.options.create_parsed_page:
             page.parsed_page = page._backend.get_segmented_page()
 
+<<<<<<< HEAD
+=======
+        # Rate the text quality from the PDF parser, and aggregate on page
+        text_scores = []
+        for c in page.cells:
+            score = self.rate_text_quality(c.text)
+            text_scores.append(score)
+
+        conv_res.confidence.pages[page.page_no].parse_score = float(
+            np.nanquantile(
+                text_scores, q=0.10
+            )  # To emphasise problems in the parse_score, we take the 10% percentile score of all text cells.
+        )
+
+>>>>>>> origin/main
         # DEBUG code:
         def draw_text_boxes(image, cells, show: bool = False):
             draw = ImageDraw.Draw(image)
@@ -88,3 +126,33 @@ class PagePreprocessingModel(BasePageModel):
             draw_text_boxes(page.get_image(scale=1.0), page.cells)
 
         return page
+<<<<<<< HEAD
+=======
+
+    def rate_text_quality(self, text: str) -> float:
+        # Hard errors: if any of these patterns are found, return 0.0 immediately.
+        blacklist_chars = ["�"]
+        if (
+            any(text.find(c) >= 0 for c in blacklist_chars)
+            or self.GLYPH_RE.search(text)
+            or self.SLASH_G_RE.search(text)
+            or self.SLASH_NUMBER_GARBAGE_RE.match(
+                text
+            )  # Check if text is mostly slash-number pattern
+        ):
+            return 0.0
+
+        penalty = 0.0
+
+        # Apply a penalty only if the fragmented words pattern occurs at least three times.
+        frag_matches = self.FRAG_RE.findall(text)
+        if len(frag_matches) >= 3:
+            penalty += 0.1 * len(frag_matches)
+
+        # Additional heuristic: if the average token length is below 2, add a penalty.
+        # tokens = text.split()
+        # if tokens and (sum(map(len, tokens)) / len(tokens)) < 2:
+        #    penalty += 0.2
+
+        return max(1.0 - penalty, 0.0)
+>>>>>>> origin/main

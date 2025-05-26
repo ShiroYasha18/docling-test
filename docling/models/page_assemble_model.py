@@ -3,6 +3,10 @@ import re
 from collections.abc import Iterable
 from typing import List
 
+<<<<<<< HEAD
+=======
+import numpy as np
+>>>>>>> origin/main
 from pydantic import BaseModel
 
 from docling.datamodel.base_models import (

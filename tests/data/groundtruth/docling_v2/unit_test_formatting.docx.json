@@ -232,6 +232,15 @@
       "prov": [],
       "orig": "hyperlink",
       "text": "hyperlink",
+<<<<<<< HEAD
+=======
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      },
+>>>>>>> origin/main
       "hyperlink": "https:/github.com/DS4SD/docling"
     },
     {
@@ -263,7 +272,17 @@
       "label": "paragraph",
       "prov": [],
       "orig": "Normal",
+<<<<<<< HEAD
       "text": "Normal"
+=======
+      "text": "Normal",
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      }
+>>>>>>> origin/main
     },
     {
       "self_ref": "#/texts/6",
@@ -329,7 +348,17 @@
       "label": "paragraph",
       "prov": [],
       "orig": "and",
+<<<<<<< HEAD
       "text": "and"
+=======
+      "text": "and",
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      }
+>>>>>>> origin/main
     },
     {
       "self_ref": "#/texts/10",
@@ -342,6 +371,15 @@
       "prov": [],
       "orig": "hyperlink",
       "text": "hyperlink",
+<<<<<<< HEAD
+=======
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      },
+>>>>>>> origin/main
       "hyperlink": "https:/github.com/DS4SD/docling"
     },
     {
@@ -354,7 +392,17 @@
       "label": "paragraph",
       "prov": [],
       "orig": "on the same line",
+<<<<<<< HEAD
       "text": "on the same line"
+=======
+      "text": "on the same line",
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      }
+>>>>>>> origin/main
     },
     {
       "self_ref": "#/texts/12",
@@ -439,6 +487,15 @@
       "prov": [],
       "orig": "Some",
       "text": "Some",
+<<<<<<< HEAD
+=======
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      },
+>>>>>>> origin/main
       "enumerated": false,
       "marker": "-"
     },
@@ -513,6 +570,15 @@
       "prov": [],
       "orig": "Nested",
       "text": "Nested",
+<<<<<<< HEAD
+=======
+      "formatting": {
+        "bold": false,
+        "italic": false,
+        "underline": false,
+        "strikethrough": false
+      },
+>>>>>>> origin/main
       "enumerated": false,
       "marker": "-"
     },

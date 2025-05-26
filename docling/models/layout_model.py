@@ -5,6 +5,10 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Optional
 
+<<<<<<< HEAD
+=======
+import numpy as np
+>>>>>>> origin/main
 from docling_core.types.doc import DocItemLabel
 from docling_ibm_models.layoutmodel.layout_predictor import LayoutPredictor
 from PIL import Image
@@ -184,6 +188,17 @@ class LayoutModel(BasePageModel):
                     ).postprocess()
                     # processed_clusters, processed_cells = clusters, page.cells
 
+<<<<<<< HEAD
+=======
+                    conv_res.confidence.pages[page.page_no].layout_score = float(
+                        np.mean([c.confidence for c in processed_clusters])
+                    )
+
+                    conv_res.confidence.pages[page.page_no].ocr_score = float(
+                        np.mean([c.confidence for c in processed_cells if c.from_ocr])
+                    )
+
+>>>>>>> origin/main
                     page.cells = processed_cells
                     page.predictions.layout = LayoutPrediction(
                         clusters=processed_clusters

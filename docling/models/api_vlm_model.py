@@ -1,4 +1,8 @@
 from collections.abc import Iterable
+<<<<<<< HEAD
+=======
+from concurrent.futures import ThreadPoolExecutor
+>>>>>>> origin/main
 
 from docling.datamodel.base_models import Page, VlmPrediction
 from docling.datamodel.document import ConversionResult
@@ -27,6 +31,10 @@ class ApiVlmModel(BasePageModel):
                 )
 
             self.timeout = self.vlm_options.timeout
+<<<<<<< HEAD
+=======
+            self.concurrency = self.vlm_options.concurrency
+>>>>>>> origin/main
             self.prompt_content = (
                 f"This is a page from a document.\n{self.vlm_options.prompt}"
             )
@@ -38,10 +46,17 @@ class ApiVlmModel(BasePageModel):
     def __call__(
         self, conv_res: ConversionResult, page_batch: Iterable[Page]
     ) -> Iterable[Page]:
+<<<<<<< HEAD
         for page in page_batch:
             assert page._backend is not None
             if not page._backend.is_valid():
                 yield page
+=======
+        def _vlm_request(page):
+            assert page._backend is not None
+            if not page._backend.is_valid():
+                return page
+>>>>>>> origin/main
             else:
                 with TimeRecorder(conv_res, "vlm"):
                     assert page.size is not None
@@ -63,4 +78,11 @@ class ApiVlmModel(BasePageModel):
 
                     page.predictions.vlm_response = VlmPrediction(text=page_tags)
 
+<<<<<<< HEAD
                 yield page
+=======
+                return page
+
+        with ThreadPoolExecutor(max_workers=self.concurrency) as executor:
+            yield from executor.map(_vlm_request, page_batch)
+>>>>>>> origin/main

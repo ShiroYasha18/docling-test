@@ -47,7 +47,11 @@ from docling_core.types.legacy_doc.document import (
 )
 from docling_core.utils.file import resolve_source_to_stream
 from docling_core.utils.legacy import docling_document_to_legacy
+<<<<<<< HEAD
 from pydantic import BaseModel
+=======
+from pydantic import BaseModel, Field
+>>>>>>> origin/main
 from typing_extensions import deprecated
 
 from docling.backend.abstract_backend import (
@@ -56,6 +60,10 @@ from docling.backend.abstract_backend import (
 )
 from docling.datamodel.base_models import (
     AssembledUnit,
+<<<<<<< HEAD
+=======
+    ConfidenceReport,
+>>>>>>> origin/main
     ConversionStatus,
     DocumentStream,
     ErrorItem,
@@ -201,6 +209,10 @@ class ConversionResult(BaseModel):
     pages: List[Page] = []
     assembled: AssembledUnit = AssembledUnit()
     timings: Dict[str, ProfilingItem] = {}
+<<<<<<< HEAD
+=======
+    confidence: ConfidenceReport = Field(default_factory=ConfidenceReport)
+>>>>>>> origin/main
 
     document: DoclingDocument = _EMPTY_DOCLING_DOC
 
@@ -302,7 +314,11 @@ class _DocumentConversionInput(BaseModel):
                     if ("." in obj.name and not obj.name.startswith("."))
                     else ""
                 )
+<<<<<<< HEAD
                 mime = _DocumentConversionInput._mime_from_extension(ext)
+=======
+                mime = _DocumentConversionInput._mime_from_extension(ext.lower())
+>>>>>>> origin/main
             if mime is not None and mime.lower() == "application/zip":
                 objname = obj.name.lower()
                 if objname.endswith(".xlsx"):
@@ -376,6 +392,16 @@ class _DocumentConversionInput(BaseModel):
             mime = FormatToMimeType[InputFormat.JSON_DOCLING][0]
         elif ext in FormatToExtensions[InputFormat.PDF]:
             mime = FormatToMimeType[InputFormat.PDF][0]
+<<<<<<< HEAD
+=======
+        elif ext in FormatToExtensions[InputFormat.DOCX]:
+            mime = FormatToMimeType[InputFormat.DOCX][0]
+        elif ext in FormatToExtensions[InputFormat.PPTX]:
+            mime = FormatToMimeType[InputFormat.PPTX][0]
+        elif ext in FormatToExtensions[InputFormat.XLSX]:
+            mime = FormatToMimeType[InputFormat.XLSX][0]
+
+>>>>>>> origin/main
         return mime
 
     @staticmethod

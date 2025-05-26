@@ -3,11 +3,19 @@ import warnings
 from pathlib import Path
 from typing import Optional, cast
 
+<<<<<<< HEAD
+=======
+import numpy as np
+>>>>>>> origin/main
 from docling_core.types.doc import DocItem, ImageRef, PictureItem, TableItem
 
 from docling.backend.abstract_backend import AbstractDocumentBackend
 from docling.backend.pdf_backend import PdfDocumentBackend
+<<<<<<< HEAD
 from docling.datamodel.base_models import AssembledUnit, Page
+=======
+from docling.datamodel.base_models import AssembledUnit, Page, PageConfidenceScores
+>>>>>>> origin/main
 from docling.datamodel.document import ConversionResult
 from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.datamodel.settings import settings
@@ -60,7 +68,11 @@ class StandardPdfPipeline(PaginatedPipeline):
             or self.pipeline_options.generate_table_images
         )
 
+<<<<<<< HEAD
         self.glm_model = ReadingOrderModel(options=ReadingOrderOptions())
+=======
+        self.reading_order_model = ReadingOrderModel(options=ReadingOrderOptions())
+>>>>>>> origin/main
 
         ocr_model = self.get_ocr_model(artifacts_path=artifacts_path)
 
@@ -197,7 +209,11 @@ class StandardPdfPipeline(PaginatedPipeline):
                 elements=all_elements, headers=all_headers, body=all_body
             )
 
+<<<<<<< HEAD
             conv_res.document = self.glm_model(conv_res)
+=======
+            conv_res.document = self.reading_order_model(conv_res)
+>>>>>>> origin/main
 
             # Generate page images in the output
             if self.pipeline_options.generate_page_images:
@@ -244,6 +260,33 @@ class StandardPdfPipeline(PaginatedPipeline):
                             cropped_im, dpi=int(72 * scale)
                         )
 
+<<<<<<< HEAD
+=======
+            # Aggregate confidence values for document:
+            if len(conv_res.pages) > 0:
+                conv_res.confidence.layout_score = float(
+                    np.nanmean(
+                        [c.layout_score for c in conv_res.confidence.pages.values()]
+                    )
+                )
+                conv_res.confidence.parse_score = float(
+                    np.nanquantile(
+                        [c.parse_score for c in conv_res.confidence.pages.values()],
+                        q=0.1,  # parse score should relate to worst 10% of pages.
+                    )
+                )
+                conv_res.confidence.table_score = float(
+                    np.nanmean(
+                        [c.table_score for c in conv_res.confidence.pages.values()]
+                    )
+                )
+                conv_res.confidence.ocr_score = float(
+                    np.nanmean(
+                        [c.ocr_score for c in conv_res.confidence.pages.values()]
+                    )
+                )
+
+>>>>>>> origin/main
         return conv_res
 
     @classmethod

@@ -14,7 +14,11 @@ Below you can find a listing of all supported input and output formats.
 | AsciiDoc | |
 | HTML, XHTML | |
 | CSV | |
+<<<<<<< HEAD
 | PNG, JPEG, TIFF, BMP | Image formats |
+=======
+| PNG, JPEG, TIFF, BMP, WEBP | Image formats |
+>>>>>>> origin/main
 
 Schema-specific support:
 

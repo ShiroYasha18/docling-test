@@ -154,6 +154,7 @@ else
     echo "Warning: No build files directory found. Some tools may be unavailable."
 fi
 
+<<<<<<< HEAD
 # Copy Python processor script to tools directory
 PYTHON_SCRIPT_PATH="$(dirname "$0")/docling_processor.py"
 if [ -f "$PYTHON_SCRIPT_PATH" ]; then
@@ -165,6 +166,8 @@ else
     exit 1
 fi
 
+=======
+>>>>>>> origin/main
 # Check OCR directories and ensure they're writable
 echo "Checking OCR directory permissions..."
 OCR_DIR="/opt/app-root/src/.EasyOCR"

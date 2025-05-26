@@ -326,8 +326,13 @@
           ]
         }
       ],
+<<<<<<< HEAD
       "orig": "Let\u2019s introduce a list",
       "text": "Let\u2019s introduce a list"
+=======
+      "orig": "Let’s introduce a list",
+      "text": "Let’s introduce a list"
+>>>>>>> origin/main
     },
     {
       "self_ref": "#/texts/4",

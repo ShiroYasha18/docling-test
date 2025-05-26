@@ -225,6 +225,10 @@ class PictureDescriptionApiOptions(PictureDescriptionBaseOptions):
     headers: Dict[str, str] = {}
     params: Dict[str, Any] = {}
     timeout: float = 20
+<<<<<<< HEAD
+=======
+    concurrency: int = 1
+>>>>>>> origin/main
 
     prompt: str = "Describe this image in a few sentences."
     provenance: str = ""
@@ -295,6 +299,10 @@ class ApiVlmOptions(BaseVlmOptions):
     params: Dict[str, Any] = {}
     scale: float = 2.0
     timeout: float = 60
+<<<<<<< HEAD
+=======
+    concurrency: int = 1
+>>>>>>> origin/main
     response_format: ResponseFormat
 
 
